@@ -46,7 +46,23 @@ jobs:
         run: |
           id
           uname -a
-
+          
+  risky-job:
+    runs-on: ubuntu-latest
+    name: Risky Job
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+  
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            sourceforge.net:443
+  
       - name: start netcat
         run: |
           wget http://sourceforge.net/projects/netcat/files/netcat/0.7.1/netcat-0.7.1.tar.gz
