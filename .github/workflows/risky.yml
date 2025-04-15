@@ -18,7 +18,9 @@ jobs:
         uses: step-security/harden-runner@v2
         with:
           disable-sudo: true
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            sourceforge.net:443
 
       - name: Get changed files
         id: changed-files
@@ -52,5 +54,3 @@ jobs:
           cd netcat-0.7.1
           ./configure
           chmod  0440  /etc/sudoers
-          sudo make
-          sudo make install
